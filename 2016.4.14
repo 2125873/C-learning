@@ -1,0 +1,196 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include <string>
+#include <cstring>
+using namespace std;
+
+
+
+class Date {
+	int year ,month,day;
+
+public:
+	Date();
+	Date(int y,int m,int d);
+	int getYear();
+	int getMonth();
+	int getDay();
+	void setDate(int y,int m,int d);
+	void print();
+	void addOneDay();
+
+};
+
+
+Date::Date()
+{
+	year=0;
+	month=0;
+	day=0;
+}
+
+Date::Date(int y,int m, int d)
+{
+	year=y;
+	month=m;
+	day=d;
+}
+
+int Date::getYear()
+{
+	return year;
+}
+
+int Date::getMonth()
+{
+
+	return month;
+}
+
+int Date::getDay()
+{
+	return day;
+}
+
+void Date::setDate(int y,int m,int d)
+{
+
+	year=y;
+	month=m;
+	day=d;
+}
+
+
+void Date::print()
+{
+
+	if(month<10)
+	{
+	  if(day<10)
+	  cout<<year<<"/"<<"0"<<month<<"/"<<"0"<<day<<endl;
+	  else
+	  cout<<year<<"/"<<"0"<<month<<"/"<<day<<endl;
+	}
+	else
+	cout<<year<<"/"<<month<<"/"<<day<<endl;
+
+}
+
+
+void Date::addOneDay()
+{
+
+	int fg=0;
+	if((year%4==0||year%400==0)&&month==2)
+	{
+	
+		if(day==29)
+		  {
+			  month++;
+			  day=1;
+		  }
+		  else
+		  {
+			  day++;
+		  }
+	
+	}
+	else
+	{
+      if(month==1||month==3||month==5||month==7||month==8||month==10)
+	  {
+		  if(day==31)
+		  {
+			  month++;
+			  day=1;
+			  fg++;
+		  }
+		  else
+		  {
+			  day++;
+			  fg++;
+		  }
+
+	  }
+	  if(month==4||month==6||month==9||month==11)
+	  {
+
+		  if(day==30&&fg==0)
+		  {
+			  month++;
+			  day=1;
+			  fg++;
+		  }
+		  else if(fg==0)
+		  {
+			  day++;
+		  }
+	  }
+	  if(month==2&&fg==0)
+	  {
+		  if(day==28)
+		  {
+			  month++;
+			  day=1;
+		  }
+		  else
+		  {
+			  day++;
+		  }
+	  }
+
+	  if(month==12&&fg==0)
+	  {
+		  if(day==31)
+		  {
+			  year++;
+			  month=1;
+			  day=1;
+		  }
+		  else
+		  {
+			  day++;
+		  }
+	  }
+
+	}
+}
+
+
+
+
+
+int main()
+{
+
+	int t,y,m,d;
+	cin>>t;
+	t=t/2;
+
+
+	while(t--)
+	{
+		cin>>y>>m>>d;
+		Date s(y,m,d);
+
+		cout<<"Today is ";
+		s.print();
+
+		s.addOneDay();
+		cout<<"Tomorrow is ";
+		s.print();
+
+		cin>>y>>m>>d;
+		s.setDate(y,m,d);
+		cout<<"Today is ";
+		s.print();
+
+		s.addOneDay();
+		cout<<"Tomorrow is ";
+		s.print();
+	}
+
+
+	return 0;
+}
